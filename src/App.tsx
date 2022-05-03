@@ -1,19 +1,26 @@
-import React, { useState, ChangeEvent } from "react";
-import "./App.css";
+import React, { useState, ChangeEvent, useTransition } from "react";
+import ListComponent, { largeList } from "./ListComponent";
 
 function App() {
   const [name, setName] = useState("");
-  const [count, setCount] = useState(0);
+  const [list, setList] = useState(largeList);
+  const [isPanding, startTransition] = useTransition();
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setName(e.target.value);
-    setCount((prevCount) => prevCount + 1);
+    startTransition(() => {
+      setList(largeList.filter((item) => item.name.includes(e.target.value)));
+    });
   }
 
   return (
     <div>
       <input type="text" value={name} onChange={handleChange} />
-      <p>{count}</p>
+      {isPanding ? (
+        <div>Loading...</div>
+      ) : (
+        list.map((item) => <ListComponent key={item.id} item={item} />)
+      )}
     </div>
   );
 }
