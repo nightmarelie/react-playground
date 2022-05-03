@@ -1,8 +1,9 @@
 import React, { useState, ChangeEvent, useTransition } from "react";
 import ListComponent, { largeList } from "./ListComponent";
+import useLocalSotrage from "./hooks/useLocalStorage";
 
 function App() {
-  const [name, setName] = useState("");
+  const [name, setName] = useLocalSotrage("name", "");
   const [list, setList] = useState(largeList);
   const [isPanding, startTransition] = useTransition();
 
