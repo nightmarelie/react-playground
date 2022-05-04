@@ -17,7 +17,7 @@ function App() {
   }
 
   return (
-    <div className="component">
+    <div className="component" onClick={() => console.log(111121212)}>
       <button onClick={() => setOpen(true)}>Open Modal</button>
       <Modal isOpen={open} onClose={() => setOpen(false)}>
         Fancy Modal
