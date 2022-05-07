@@ -12,8 +12,8 @@ function App() {
   const [isPanding, startTransition] = useTransition();
   const [theme, setTheme] = useState("dark");
 
-  const [query, setQuery] = useState("");
-  const [data, setData] = useState([]);
+  const [query] = useState("");
+  const [, setData] = useState([]);
 
   useDebounceEffect(
     () => {
