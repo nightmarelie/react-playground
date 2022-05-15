@@ -1,4 +1,10 @@
-import React, { useState, ChangeEvent, useTransition } from "react";
+import React, {
+  useState,
+  ChangeEvent,
+  useTransition,
+  useDeferredValue,
+  useMemo,
+} from "react";
 import ListComponent, { largeList } from "./components/ListComponent";
 import useLocalSotrage from "./hooks/useLocalStorage";
 import useDebounceEffect from "./hooks/useDebounceEffect";
@@ -6,12 +12,16 @@ import { ThemeContext } from "./contexts/ThemeContext";
 
 function App() {
   const [name, setName] = useLocalSotrage("name", "");
-  const [list, setList] = useState(largeList);
   const [isPanding, startTransition] = useTransition();
   const [theme, setTheme] = useState("dark");
+  const deferredName = useDeferredValue(name)
 
   const [query] = useState("");
   const [, setData] = useState([]);
+
+  const list = useMemo(() => {
+    return largeList.filter(item => item.name.includes(deferredName))
+  }, 
 
   useDebounceEffect(
     () => {
